@@ -7,12 +7,10 @@ import entorno.Herramientas;
 
 public class Princesa {
 	
-	private double x;
-	private double y;
-	private double xInicial;
-	private double yInicial;
-	private double escala;
-	private boolean estaSaltando = false;
+	private double x, y, xInicial, yInicial, escala, velocidadVertical;
+	private boolean estaSaltando;
+    private final double gravedad = 0.5;
+    private final double fuerzaSalto = -13;
 	private Image img;
 	
 	
@@ -22,6 +20,8 @@ public class Princesa {
 		this.y = y;
 		this.yInicial = y;
 		this.escala = escala;
+		this.estaSaltando = false;
+        this.velocidadVertical = 0;
 		this.img = Herramientas.cargarImagen("assets/princess_peach.png");
 	}
 	
@@ -39,8 +39,22 @@ public class Princesa {
 	}
 
 	public void saltar() {
+		if (!estaSaltando) {
+            estaSaltando = true;
+            velocidadVertical = fuerzaSalto;
+        }
 	}
 
 	public void caer() {
+		if (estaSaltando) {
+            y += velocidadVertical;
+            velocidadVertical += gravedad;
+            
+            if (y >= yInicial) {
+                y = yInicial;
+                estaSaltando = false;
+                velocidadVertical = 0;
+            }
+        }
 	}
 }
