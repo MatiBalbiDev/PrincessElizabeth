@@ -29,13 +29,14 @@ public class Princesa {
 		entorno.dibujarImagen(img, x, y, 0, escala);
 	}
 
-	public void moverALaDerecha() {
-		this.x += 5;
+	public void moverALaDerecha(Entorno entorno) {
+		if(this.x + img.getWidth(entorno) / 2 * escala  <= entorno.ancho())
+			this.x += 5;
 	}
 
-	public void moverALaIzquierda() {
-		this.x -= 5;
-		
+	public void moverALaIzquierda(Entorno entorno) {
+		if(this.x - img.getWidth(entorno) / 2 * escala > 0)
+			this.x -= 5;
 	}
 
 	public void saltar() {
@@ -56,5 +57,9 @@ public class Princesa {
                 velocidadVertical = 0;
             }
         }
+	}
+
+	public BolaFuego lanzarBolaFuego() {
+		return new BolaFuego(this.x, this.y, 8);
 	}
 }
