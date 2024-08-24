@@ -31,5 +31,34 @@ public class BolaFuego extends Ataque{
 	public boolean fueraDePantalla(Entorno entorno) {
         return x < 0 || x > entorno.ancho();
     }
+	
+	public boolean colisionaConSoldado(Soldado soldado) {
+	    
+	    double bolaFuegoIzquierda = this.x;
+	    double bolaFuegoDerecha = this.x + this.getAncho();
+	    double bolaFuegoArriba = this.y;
+	    double bolaFuegoAbajo = this.y + this.getAlto();
+
+	    
+	    double soldadoIzquierda = soldado.getX();
+	    double soldadoDerecha = soldado.getX() + soldado.getAncho();
+	    double soldadoArriba = soldado.getY();
+	    double soldadoAbajo = soldado.getY() + soldado.getAlto();
+
+	   
+	    return bolaFuegoDerecha > soldadoIzquierda &&
+	           bolaFuegoIzquierda < soldadoDerecha &&
+	           bolaFuegoAbajo > soldadoArriba &&
+	           bolaFuegoArriba < soldadoAbajo;
+	}
+
+	
+	private double getAncho() {
+	    return this.img.getWidth(null) * 0.05;
+	}
+
+	private double getAlto() {
+	    return this.img.getHeight(null) * 0.05;
+	}
 
 }
